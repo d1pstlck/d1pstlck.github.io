@@ -132,7 +132,7 @@
   </head>
   <body>
     <div class="card">
-      <a href="index" class="back-button">Back</a>
+      <a href="/" class="back-button">Back</a>
       <div class="lists-container">
         <div>
           <h2>Pronouns</h2>
