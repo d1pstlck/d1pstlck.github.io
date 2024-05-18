@@ -3,19 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Website Name</title>
-    <!-- 
-    <meta content="Embed Title" property="og:title" />
-    <meta content="Site Description" property="og:description" />
-    <meta content="https://filler.com/" property="og:url" />
-    <meta content="https://filler.com/filler.png" property="og:image" />
-    <meta content="#43B581" data-react-helmet="true" name="theme-color" /> 
-    -->
+    <title>Hazel's card</title>
+    <meta content="Hazels card!" property="og:title" />
+    <meta
+      content="My website for socials, info, and other things!"
+      property="og:description"
+    />
+    <meta content="https://v7jvz7.csb.app/" property="og:url" />
+    <meta content="https://d1pstlck.github.io/pfp1.jpg" property="og:image" />
+    <meta content="#363636" data-react-helmet="true" name="theme-color" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
     />
     <style>
       body {
@@ -31,6 +38,7 @@
         position: relative;
         overflow: hidden;
       }
+
       body::before {
         content: "";
         position: absolute;
@@ -46,7 +54,7 @@
         z-index: 0;
       }
 
-      .dm-sans-<uniquifier > {
+      .dm-sans-one {
         font-family: "DM Sans", sans-serif;
         font-optical-sizing: auto;
         font-weight: 100;
@@ -66,9 +74,11 @@
         z-index: 1;
         transition: transform 0.5s ease;
       }
+
       .card:hover {
         transform: rotateX(10deg) rotateY(10deg);
       }
+
       .card img.profile-pic {
         width: 150px;
         height: 150px;
@@ -82,16 +92,46 @@
         background: white;
         padding: 2px;
       }
+
       .card h2 {
         margin: 40px 0 25px;
         color: #e4e6eb;
         font-size: 40px;
       }
+
       .card p {
-        margin: 10px 0 35px;
+        margin: 10px 0 15px; /* Adjusted margin */
         color: #919499;
         font-size: 20px;
       }
+
+      .about-me {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 3px;
+        margin-bottom: 12px;
+      }
+
+      .card img.pronouns {
+        width: 33px;
+        height: 33px;
+        vertical-align: middle;
+        margin-bottom: 17px;
+        transition: filter 0.3s ease;
+        text-decoration: none;
+      }
+      .card a {
+        text-decoration: none;
+      }
+      .card a:hover img.pronouns {
+        filter: brightness(0.6);
+        text-decoration: none;
+      }
+
+      .social-links {
+        margin-top: 5px;
+      }
+
       .social-links a {
         margin: 0 10px;
         text-decoration: none;
@@ -100,16 +140,19 @@
         transition: color 0.3s ease;
         display: inline-block;
       }
+
       .social-links a:hover {
         color: #a09c9c;
       }
+
       .social-links img {
         width: 33px;
         height: 33px;
         vertical-align: middle;
-        margin-bottom: 6px;
+        margin-bottom: 0px;
         transition: filter 0.3s ease;
       }
+
       .social-links a:hover img {
         filter: brightness(0.6);
       }
@@ -123,7 +166,15 @@
     <div class="card" id="card">
       <img src="" alt="Profile Picture" class="profile-pic" />
       <h2>Hazel</h2>
-      <p>Terminally diagnosed with being too silly.</p>
+      <p>Terminally diagnosed with being too silly!</p>
+      <a href="https://v7jvz7.csb.app/about.html">
+        <img src="abt.png" alt="Pronouns" class="pronouns" />
+      </a>
+      <div class="about-me">
+        <p>About me page</p>
+      </div>
+      <p>Socials and links!</p>
+      <p></p>
       <div class="social-links">
         <a href="https://www.roblox.com/users/2859917371" target="_blank">
           <img src="rblx.png" alt="Roblox" />
@@ -131,9 +182,7 @@
         <a href="https://last.fm/user/d1pstlck" target="_blank">
           <i class="fab fa-lastfm"></i>
         </a>
-        <a href="https://pronouns.page/@dipstlck" target="_blank">
-          <img src="pp.png" alt="Pronouns" />
-        </a>
+
         <a
           href="https://open.spotify.com/user/954rlo1in85znffy981614owd"
           target="_blank"
@@ -149,30 +198,31 @@
         <a href="https://knflgw.csb.app/" target="_blank">
           <i class="fas fa-link"></i>
         </a>
+        <a href="https://discord.gg/siteroleplay" target="_blank">
+          <i class="fa-brands fa-discord"></i>
+        </a>
       </div>
     </div>
-
-    <script>
-      const card = document.getElementById("card");
-      const images = [
-        "pfp1.jpg",
-        "pfp2.jpg",
-        "pfp3.jpg",
-        "pfp4.jpg",
-        "pfp5.jpg",
-        "pfp6.jpg",
-      ];
-      const randomIndex = Math.floor(Math.random() * images.length);
-      const randomImage = images[randomIndex];
-      const profilePic = document.querySelector(".profile-pic");
-      profilePic.src = randomImage;
-
-      window.addEventListener("mousemove", (e) => {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-      });
-    </script>
   </body>
+  <script>
+    const card = document.getElementById("card");
+    const images = [
+      "pfp1.jpg",
+      "pfp2.jpg",
+      "pfp3.jpg",
+      "pfp4.jpg",
+      "pfp5.jpg",
+      "pfp6.jpg",
+    ];
+    const randomIndex = Math.floor(Math.random() * images.length);
+    const randomImage = images[randomIndex];
+    const profilePic = document.querySelector(".profile-pic");
+    profilePic.src = randomImage;
+
+    window.addEventListener("mousemove", (e) => {
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+  </script>
 </html>
-``
