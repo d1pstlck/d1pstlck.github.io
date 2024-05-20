@@ -56,7 +56,7 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         text-align: center;
         padding: 40px;
-        width: 400px;
+        width: 700px;
         position: relative;
         z-index: 1;
         display: flex;
@@ -92,6 +92,7 @@
         font-size: 18px;
         margin-top: 15px;
         transition: background-color 0.3s ease;
+        text-align: center;
       }
 
       button {
@@ -690,7 +691,7 @@
             if (!visitedItems.has(newItem)) {
               queue.push({
                 item: newItem,
-                path: [...path, setting],
+                path: [...path, item + " on " + setting],
                 settings: [...settings, newItem],
               });
             }
