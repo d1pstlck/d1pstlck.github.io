@@ -106,11 +106,32 @@
       #result {
         margin-top: 5%;
       }
+      .back-button {
+        background: rgba(85, 66, 89, 0.44);
+        filter: blur(0.75px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #e4e6eb;
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-2%, -5%);
+        transition: background-color 0.3s;
+      }
+
+      .back-button:hover {
+        filter: blur(0px);
+      }
     </style>
   </head>
 
   <body>
     <div class="card">
+      <a href="/scp" class="back-button">Back</a>
       <h1>SCP Crosstest Picker</h1>
       <label for="useList3">Legal</label>
       <input type="checkbox" id="useList3" checked />
