@@ -12,8 +12,6 @@
     />
     <meta property="og:image" content="https://d1pstlck.github.io/pfp1.jpg" />
     <meta property="og:url" content="Placeholder" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
       rel="stylesheet"
@@ -82,62 +80,6 @@
         font-size: 20px;
       }
 
-      .lists-container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-        gap: 66px;
-      }
-
-      .pronouns-list {
-        list-style-type: none;
-        padding: 20px;
-        flex-basis: 40%;
-      }
-
-      .pronouns-list li {
-        margin-bottom: 15px;
-        color: #e4e6eb;
-        font-size: 20px;
-      }
-
-      .pronouns-list li::before {
-        content: "•";
-        margin-right: 7px;
-      }
-
-      #time-box {
-        background-color: rgba(255, 255, 255, 0.2);
-        color: #e4e6eb;
-        border-radius: 5px;
-        padding: 10px 15px;
-        font-size: 20px;
-        margin-bottom: 10px;
-        width: fit-content;
-        display: inline-block;
-      }
-
-      .back-button {
-        background: rgba(85, 66, 89, 0.44);
-        filter: blur(0.75px);
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        border-radius: 50px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        color: #e4e6eb;
-        padding: 10px 20px;
-        text-decoration: none;
-        font-size: 20px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: translate(-2%, -5%);
-        transition: background-color 0.3s;
-      }
-
-      .back-button:hover {
-        filter: blur(0px);
-      }
-
       .calculator-container {
         margin-top: 50px;
       }
@@ -148,7 +90,6 @@
         text-align: center;
       }
 
-      .calculator input,
       .calculator select {
         width: 100%;
         margin-bottom: 20px;
@@ -159,9 +100,11 @@
         color: #e4e6eb;
         font-size: 20px;
         box-sizing: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
       }
 
-      .calculator input:focus,
       .calculator select:focus {
         outline: none;
         background-color: rgba(255, 255, 255, 0.3);
@@ -186,11 +129,25 @@
         color: #919499;
       }
 
-      .calculator select {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        padding: 10px;
+      .back-button {
+        background: rgba(85, 66, 89, 0.44);
+        filter: blur(0.75px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #e4e6eb;
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-2%, -5%);
+        transition: background-color 0.3s;
+      }
+
+      .back-button:hover {
+        filter: blur(0px);
       }
     </style>
   </head>
@@ -228,46 +185,24 @@
         for (let i = 0; i < levels.length; i++) {
           const option = document.createElement("option");
           option.value = levels[i];
-          option.text = `Level ${i} - ${levels[i]} XP`;
-          currentLevelSelect.add(option.cloneNode(true));
-          desiredLevelSelect.add(option);
+          option.textContent = `Level ${i} - ${levels[i]} XP`;
+          currentLevelSelect.appendChild(option.cloneNode(true));
+          desiredLevelSelect.appendChild(option);
         }
 
         function calculateTimeLeft() {
-          const currentXP = parseInt(
-            document.getElementById("current-xp").value
-          );
-          const desiredXP = parseInt(
-            document.getElementById("desired-xp").value
-          );
           const currentLevelXP = parseInt(currentLevelSelect.value);
           const desiredLevelXP = parseInt(desiredLevelSelect.value);
 
-          let finalCurrentXP = currentXP;
-          let finalDesiredXP = desiredXP;
-
-          if (!isNaN(currentLevelXP)) {
-            finalCurrentXP = currentLevelXP;
-          }
-
-          if (!isNaN(desiredLevelXP)) {
-            finalDesiredXP = desiredLevelXP;
-          }
-
-          if (isNaN(finalCurrentXP) || isNaN(finalDesiredXP)) {
+          if (isNaN(currentLevelXP) || isNaN(desiredLevelXP)) {
             document.getElementById("resultOutput").textContent =
-              "Please insert values.";
+              "Please select valid levels.";
             return;
           }
 
-          const timeLeft = (finalDesiredXP - finalCurrentXP) / 5;
+          const timeLeft = (desiredLevelXP - currentLevelXP) / 5;
           document.getElementById("resultOutput").textContent =
             formatTime(timeLeft);
-        }
-
-        const inputs = document.querySelectorAll("input, select");
-        for (const input of inputs) {
-          input.addEventListener("input", calculateTimeLeft);
         }
 
         function formatTime(timeLeft) {
@@ -288,6 +223,9 @@
         }
 
         calculateTimeLeft();
+
+        currentLevelSelect.addEventListener("change", calculateTimeLeft);
+        desiredLevelSelect.addEventListener("change", calculateTimeLeft);
       });
     </script>
     <script>
