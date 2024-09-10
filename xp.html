@@ -164,21 +164,6 @@
         background-color: rgba(255, 255, 255, 0.3);
       }
 
-      .calculator button {
-        background-color: #553f59;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        color: #e4e6eb;
-        font-size: 20px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-
-      .calculator button:hover {
-        background-color: #422d42;
-      }
-
       .calculator label {
         color: #919499;
       }
@@ -195,15 +180,15 @@
         z-index: 1;
         transition: transform 0.5s ease;
         margin-left: 66px;
-        }
-        .side-panel h1,
-.side-panel h3,
-.side-panel p,
-.side-panel label,
-.side-panel select {
-  font-weight: normal; 
-}
-        select {
+      }
+      .side-panel h1,
+      .side-panel h3,
+      .side-panel p,
+      .side-panel label,
+      .side-panel select {
+        font-weight: normal;
+      }
+      select {
         width: 30%;
         background: rgba(85, 66, 89, 0.44);
         border: 2px solid rgba(255, 255, 255, 0.2);
@@ -232,38 +217,36 @@
           <input type="number" id="current-xp" name="current-xp" />
           <label for="desired-xp">Desired XP</label>
           <input type="number" id="desired-xp" name="desired-xp" />
-          <button onclick="calculateTimeLeft()">Calculate</button>
           <p id="resultOutput"></p>
         </div>
       </div>
     </div>
     <div class="side-panel" id="sidePanel">
-                <h1>Total XP list</h1>
-        <p></p>
-        <p></p>
-        <label for="teamXP">Select Team</label>
-        <select id="team" name="team">
-          <option value="0">CD</option>
-          <option value="1">O5</option>
-          <option value="2">SiD</option>
-          <option value="3">IA</option>
-          <option value="4">RRT</option>
-          <option value="5">MTF</option>
-          <option value="6">SD</option>
-          <option value="7">ScD</option>
-          <option value="8">MD</option>
-          <option value="9">CI</option>
-        </select>
-        <p id="sidePanelText"> Side </p>
-      </div>      
-  </div>
+      <h1>Total XP list</h1>
+      <p></p>
+      <p></p>
+      <label for="teamXP">Select Team</label>
+      <select id="team" name="team">
+        <option value="0">CD</option>
+        <option value="1">O5</option>
+        <option value="2">SiD</option>
+        <option value="3">IA</option>
+        <option value="4">AR</option>
+        <option value="5">SO</option>
+        <option value="6">SG</option>
+        <option value="7">RA</option>
+        <option value="8">MED</option>
+        <option value="9">NLO</option>
+      </select>
+      <div id="sidePanelText"></div>
+    </div>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", () => {
         function calculateTimeLeft() {
-          const currentXP = parseInt(
+          const currentXP = parseFloat(
             document.getElementById("current-xp").value
           );
-          const desiredXP = parseInt(
+          const desiredXP = parseFloat(
             document.getElementById("desired-xp").value
           );
 
@@ -284,95 +267,89 @@
         }
 
         function formatTime(timeLeft) {
-          return timeLeft.toFixed(2) + " minutes";
+          if (timeLeft < 60) {
+            return timeLeft.toFixed(2) + " minutes";
+          } else if (timeLeft < 3600) {
+            return (timeLeft / 60).toFixed(2) + " hours";
+          } else {
+            return (timeLeft / 3600).toFixed(2) + " days";
+          }
         }
 
         calculateTimeLeft();
-      });
-    </script>
 
-    <script>
-      const sidePanel = document.getElementById("sidePanel");
+        function updateSidePanelText() {
+          const teamSelect = document.getElementById("team");
+          const selectedTeam = teamSelect.value;
 
-      // sidePanel.addEventListener('mouseenter', () => {
-      // sidePanel.classList.add('active');
-      // });
+          let text = "";
+          switch (selectedTeam) {
+            case "0":
+              text =
+                "<h3>New Arrivant || 0<br>Disrespected || 100<br>Respected || 300<br>Dangerous || 700<br>Feared || 1500<br>Murderer || 3100<br>Hitman || 6300<br>Leader || 12700<br>Boss || 25500<br>Ringleader || 51100<br>Kingpin || 102300</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "1":
+              text =
+                "<h3>O5-3 || 0<br>O5-4 || 100<br>O5-5 || 300<br>O5-7 || 700<br>O5-10 || 1500<br>O5-11 || 3100<br>O5-12 || 6300<br>O5-1 || 12700<br>O5-13 || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "2":
+              text =
+                "<h3>Newly Appointed || 0<br>Inexperienced || 100<br>Semi Experienced || 300<br>Experienced || 700<br>Highly Experienced || 1500<br>Medium Authority || 3100<br>High Authority || 6300<br>Mastered Authority || 12700<br>Unrivaled Authority || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "3":
+              text =
+                "<h3>Recruit || 0<br>Agent || 100<br>Field Agent || 300<br>Senior Agent || 700<br>Special Agent || 1500<br>Supervisor || 3100<br>Deputy Director || 6300<br>Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "4":
+              text =
+                "<h3>Recruit || 0<br>Agent || 100<br>Senior Agent || 300<br>Unit-XO || 700<br>Unit-CO || 1500<br>Commander || 3100<br>Assistant Director || 6300<br>Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "5":
+              text =
+                "<h3>Recruit || 0<br>Operative || 100<br>Special Operative || 300<br>Senior Operative || 700<br>Unit Leader || 1500<br>Commander || 3100<br>Assistant Director || 6300<br>Director || 12700<br>Overseer|| 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "6":
+              text =
+                "<h3>Recruit || 0<br>Gaurd || 100<br>Senior Gaurd || 300<br>Sergeant || 700<br>Lieutenant || 1500<br>Commander || 3100<br>Deputy Director || 6300<br>Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "7":
+              text =
+                "<h3>Entrant || 0<br>Junior Researcher || 100<br>Researcher || 300<br>Specialist || 700<br>Senior Researcher || 1500<br>Head Researcher || 3100<br>Assistant Director || 6300<br>Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "8":
+              text =
+                "<h3>Intern || 0<br>Nurse || 100<br>Senior Nurse || 300<br>Doctor || 700<br>Physician || 1500<br>Attending Physician || 3100<br>Supervisor || 6300<br>Medical Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "9":
+              text =
+                "<h3>Enlisted || 0<br>Junior Operative || 100<br>R Squadron || 300<br>A Squadron || 700<br>Operations Director || 1500<br>Insurgency Command || 3100<br>Global Council || 6300<br>The Head || 12700<br>The Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            default:
+              text = "";
+          }
 
-      // sidePanel.addEventListener('mouseleave', () => {
-      // sidePanel.classList.remove('active');
-      // });
-    </script>
-    <script>
-      function updateSidePanelText() {
-        const teamSelect = document.getElementById("team");
-        const selectedTeam = teamSelect.value;
-
-        let text = "";
-        switch (selectedTeam) {
-          case "0":
-            text =
-              "<h3>New Arrivant || 0<br>Disrespected || 100<br>Respected || 300<br>Dangerous || 700<br>Feared || 1500<br>Murderer || 3100<br>Hitman || 6300<br>Leader || 12700<br>Boss || 25500<br>Ringleader || 51100<br>Kingpin || 102300</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
-            break;
-          case "1":
-            text =
-              "<h3>O5-3 || 0<br>O5-4 || 100<br>O5-5 || 300<br>O5-7 || 700<br>O5-10 || 1500<br>O5-11 || 3100<br>O5-12 || 6300<br>O5-1 || 12700<br>O5-13 || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
-            break;
-          case "2":
-            text =
-              "<h3>Newly Appointed || 0<br>Inexperienced || 100<br>Semi Experienced || 300<br>Experienced || 700<br>Highly Experienced || 1500<br>Medium Authority || 3100<br>High Authority || 6300<br>Mastered Authority || 12700<br>Unrivaled Authority || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
-            break;
-          case "3":
-            text =
-              "<h3>Recruit || 0<br>Agent || 100<br>Field Agent || 300<br>Senior Agent || 700<br>Special Agent || 1500<br>Supervisor || 3100<br>Deputy Director || 6300<br>Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
-            break;
-          case "4":
-            text =
-              "<h3>Recruit || 0<br>Agent || 100<br>Senior Agent || 300<br>Unit-XO || 700<br>Unit-CO || 1500<br>Commander || 3100<br>Assistant Director || 6300<br>Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
-            break;
-          case "5":
-            text =
-              "<h3>Recruit || 0<br>Operative || 100<br>Special Operative || 300<br>Senior Operative || 700<br>Unit Leader || 1500<br>Commander || 3100<br>Assistant Director || 6300<br>Director || 12700<br>Overseer|| 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
-            break;
-          case "6":
-            text =
-              "<h3>Recruit || 0<br>Gaurd || 100<br>Senior Gaurd || 300<br>Sergeant || 700<br>Lieutenant || 1500<br>Commander || 3100<br>Deputy Director || 6300<br>Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
-            break;
-          case "7":
-            text =
-              "<h3>Entrant || 0<br>Junior Researcher || 100<br>Researcher || 300<br>Specialist || 700<br>Senior Researcher || 1500<br>Head Researcher || 3100<br>Assistant Director || 6300<br>Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
-            break;
-          case "8":
-            text =
-              "<h3>Intern || 0<br>Nurse || 100<br>Senior Nurse || 300<br>Doctor || 700<br>Physician || 1500<br>Attending Physician || 3100<br>Supervisor || 6300<br>Medical Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
-            break;
-          case "9":
-            text =
-              "<h3>Enlisted || 0<br>Junior Operative || 100<br>R Squadron || 300<br>A Squadron || 700<br>Operations Director || 1500<br>Insurgency Command || 3100<br>Global Council || 6300<br>The Head || 12700<br>The Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
-            break;
-          default:
-            text = "";
+          const sidePanelText = document.getElementById("sidePanelText");
+          sidePanelText.innerHTML = text;
         }
 
-        const sidePanelText = document.getElementById("sidePanelText");
-        sidePanelText.innerHTML = text;
-      }
+        const teamSelect = document.getElementById("team");
+        teamSelect.addEventListener("change", updateSidePanelText);
 
-      const teamSelect = document.getElementById("team");
-      teamSelect.addEventListener("change", updateSidePanelText);
+        updateSidePanelText();
 
-      updateSidePanelText();
-      
-      const card = document.querySelector(".card");
-      window.addEventListener("mousemove", (e) => {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-      });
-      const side = document.querySelector(".side-panel");
-      window.addEventListener("mousemove", (e) => {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        side.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        const card = document.querySelector(".card");
+        window.addEventListener("mousemove", (e) => {
+          const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+          const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+          card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        const side = document.querySelector(".side-panel");
+        window.addEventListener("mousemove", (e) => {
+          const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+          const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+          side.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
       });
     </script>
   </body>
