@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -125,6 +125,27 @@
         transform: translate(-2%, -5%);
         transition: background-color 0.3s;
       }
+
+      .raw {
+        background: rgba(85, 66, 89, 0.44);
+        filter: blur(0.5px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #e4e6eb;
+        padding: 14px 30px;
+        text-decoration: none;
+        top: 0;
+        left: 0;
+        transition: background-color 0.3s;
+        font-size: 18px;
+        margin-top: 20%;
+        transition: background-color 0.3s ease;
+      }
+
+      .raw:hover {
+        filter: blur(0px);
+      }
     </style>
   </head>
   <body>
@@ -132,7 +153,7 @@
       <a href="/" class="back-button">Back</a>
       <h2>Time to Earn</h2>
       <p>Select team, role, and amount of money you want to earn.</p>
-      
+
       <label for="team">Team:</label>
       <select id="team" onchange="updateRoles()">
         <option value="">Select Team</option>
@@ -147,14 +168,20 @@
         <option value="SiD">SiD</option>
         <option value="O5">O5</option>
       </select>
-      
+
       <label for="role">Role and Rank:</label>
-      <select id="role" onchange="calculateTime()">
-      </select>
-      
+      <select id="role" onchange="calculateTime()"></select>
+
       <label for="amount">Amount of Money:</label>
-      <input type="number" id="amount" placeholder="Enter" oninput="calculateTime()" />
+      <input
+        type="number"
+        id="amount"
+        placeholder="Enter"
+        oninput="calculateTime()"
+      />
       <p id="result"></p>
+      <br />
+      <a href="/wagelist" class="raw">Full list of pay</a>
     </div>
 
     <script>
@@ -168,7 +195,7 @@
           { value: 34, text: "Insurgency Command" },
           { value: 38, text: "Global Council" },
           { value: 42, text: "The Head" },
-          { value: 46, text: "The Overseer" }
+          { value: 46, text: "The Overseer" },
         ],
         CD: [
           { value: 10, text: "New Arrivant" },
@@ -181,7 +208,7 @@
           { value: 28, text: "Leader" },
           { value: 32, text: "Boss" },
           { value: 36, text: "Ringleader" },
-          { value: 40, text: "Kingpin" }
+          { value: 40, text: "Kingpin" },
         ],
         IA: [
           { value: 30, text: "Recruit" },
@@ -192,7 +219,7 @@
           { value: 44, text: "Supervisor" },
           { value: 48, text: "Deputy Director" },
           { value: 52, text: "Director" },
-          { value: 56, text: "Overseer" }
+          { value: 56, text: "Overseer" },
         ],
         MD: [
           { value: 20, text: "Intern" },
@@ -203,7 +230,7 @@
           { value: 34, text: "Attending Physician" },
           { value: 38, text: "Supervisor" },
           { value: 42, text: "Medical Director" },
-          { value: 46, text: "Overseer" }
+          { value: 46, text: "Overseer" },
         ],
         MTF: [
           { value: 20, text: "Recruit" },
@@ -214,7 +241,7 @@
           { value: 34, text: "Commander" },
           { value: 38, text: "Assistant Director" },
           { value: 42, text: "Task Force Director" },
-          { value: 46, text: "Overseer" }
+          { value: 46, text: "Overseer" },
         ],
         O5: [
           { value: 50, text: "O5-3" },
@@ -225,7 +252,7 @@
           { value: 64, text: "O5-11" },
           { value: 68, text: "O5-12" },
           { value: 72, text: "O5-1" },
-          { value: 76, text: "O5-13" }
+          { value: 76, text: "O5-13" },
         ],
         RRT: [
           { value: 30, text: "Recruit" },
@@ -236,7 +263,7 @@
           { value: 44, text: "Commander" },
           { value: 48, text: "Assistant Director" },
           { value: 52, text: "Director" },
-          { value: 56, text: "Overseer" }
+          { value: 56, text: "Overseer" },
         ],
         ScD: [
           { value: 20, text: "Entrant" },
@@ -247,7 +274,7 @@
           { value: 34, text: "Head Researcher" },
           { value: 38, text: "Assistant Director" },
           { value: 42, text: "Director" },
-          { value: 46, text: "Overseer" }
+          { value: 46, text: "Overseer" },
         ],
         SD: [
           { value: 20, text: "Recruit" },
@@ -258,7 +285,7 @@
           { value: 34, text: "Commander" },
           { value: 38, text: "Deputy Director" },
           { value: 42, text: "Director" },
-          { value: 46, text: "Overseer" }
+          { value: 46, text: "Overseer" },
         ],
         SiD: [
           { value: 40, text: "Newly Appointed" },
@@ -269,20 +296,20 @@
           { value: 54, text: "Medium Authority" },
           { value: 58, text: "High Authority" },
           { value: 62, text: "Master Authority" },
-          { value: 66, text: "Unrivaled Authority" }
-        ]
+          { value: 66, text: "Unrivaled Authority" },
+        ],
       };
 
       function updateRoles() {
-        const teamSelect = document.getElementById('team');
-        const roleSelect = document.getElementById('role');
+        const teamSelect = document.getElementById("team");
+        const roleSelect = document.getElementById("role");
         const selectedTeam = teamSelect.value;
 
         roleSelect.innerHTML = '<option value="">Select Role</option>';
 
         if (selectedTeam && roles[selectedTeam]) {
-          roles[selectedTeam].forEach(role => {
-            const option = document.createElement('option');
+          roles[selectedTeam].forEach((role) => {
+            const option = document.createElement("option");
             option.value = role.value;
             option.textContent = `${role.text}`;
             roleSelect.appendChild(option);
@@ -293,16 +320,20 @@
       }
 
       function calculateTime() {
-        const rolePay = parseFloat(document.getElementById('role').value);
-        const amount = parseFloat(document.getElementById('amount').value);
-        const roleText = document.getElementById('role').options[document.getElementById('role').selectedIndex]?.text || '';
+        const rolePay = parseFloat(document.getElementById("role").value);
+        const amount = parseFloat(document.getElementById("amount").value);
+        const roleText =
+          document.getElementById("role").options[
+            document.getElementById("role").selectedIndex
+          ]?.text || "";
 
         if (isNaN(rolePay) || isNaN(amount) || rolePay <= 0 || amount <= 0) {
-          document.getElementById('result').innerText = 'Please enter valid numbers.';
+          document.getElementById("result").innerText =
+            "Please enter valid numbers.";
           return;
         }
 
-        const timeInMinutes = Math.ceil(amount / rolePay * 5);
+        const timeInMinutes = Math.ceil((amount / rolePay) * 5);
         const roundedTimeInMinutes = Math.ceil(timeInMinutes / 5) * 5;
         const hours = Math.floor(roundedTimeInMinutes / 60);
         const minutes = roundedTimeInMinutes % 60;
@@ -311,19 +342,19 @@
         resultText += `Time to earn $${amount.toFixed(2)}:`;
 
         if (hours > 0) {
-          resultText += ` ${hours} ${hours === 1 ? 'hour' : 'hours'}`;
+          resultText += ` ${hours} ${hours === 1 ? "hour" : "hours"}`;
         }
         if (hours > 0 && minutes > 0) {
-          resultText += ' and';
+          resultText += " and";
         }
         if (minutes > 0) {
-          resultText += ` ${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
+          resultText += ` ${minutes} ${minutes === 1 ? "minute" : "minutes"}`;
         }
         if (hours === 0 && minutes === 0) {
-          resultText += ' less than a minute';
+          resultText += " less than a minute";
         }
 
-        document.getElementById('result').innerText = resultText;
+        document.getElementById("result").innerText = resultText;
       }
 
       const card = document.querySelector(".card");
@@ -333,5 +364,5 @@
         card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
       });
     </script>
-  </body> 
+  </body>
 </html>
