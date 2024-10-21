@@ -1,0 +1,281 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <base href="https://dipstick.cc/dice" />
+    <title>Dice</title>
+    <style>
+      :root {
+        overscroll-behavior: none;
+      }
+      :root {
+        overscroll-behavior: none;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #e6e6fa 0%, #9370db 100%);
+        color: #4b0082;
+        font-size: 12px;
+      }
+      html,
+      body {
+        overscroll-behavior-y: none;
+      }
+      .container {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .dice-column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(230, 230, 250, 0.3);
+        backdrop-filter: blur(5px);
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 4px 16px rgba(147, 112, 219, 0.15);
+      }
+
+      .total {
+        font-size: 16px;
+        font-weight: bold;
+        color: #4b0082;
+        margin-bottom: 10px;
+        background: rgba(230, 230, 250, 0.7);
+        backdrop-filter: blur(5px);
+        padding: 5px 10px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(147, 112, 219, 0.15);
+      }
+
+      .dice-wrapper {
+        position: relative;
+        margin-bottom: 10px;
+      }
+
+      .dice {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: rgba(230, 230, 250, 0.8);
+        backdrop-filter: blur(5px);
+        box-shadow: 0 4px 16px rgba(147, 112, 219, 0.15);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #4b0082;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .dice:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(147, 112, 219, 0.25);
+      }
+
+      .remove-dice {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #8a2be2;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+      }
+
+      .dice-wrapper:hover .remove-dice {
+        opacity: 1;
+      }
+
+      .remove-dice:hover {
+        background: #9932cc;
+        transform: scale(1.1);
+      }
+
+      .add-dice {
+        background: #9370db;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 5px;
+      }
+
+      .add-dice:hover {
+        background: #8a2be2;
+        transform: scale(1.1);
+      }
+
+      .roll-button {
+        padding: 10px 20px;
+        font-size: 14px;
+        background: #8a2be2;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 15px;
+      }
+
+      .roll-button:hover {
+        background: #9932cc;
+        transform: scale(1.05);
+      }
+
+      @keyframes roll {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .dice::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
+        background-size: cover;
+        opacity: 0.3;
+      }
+
+      .dice[data-value="1"]::after {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="8" fill="%234B0082"/></svg>');
+      }
+      .dice[data-value="2"]::after {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><circle cx="20" cy="20" r="8" fill="%234B0082"/><circle cx="60" cy="60" r="8" fill="%234B0082"/></svg>');
+      }
+      .dice[data-value="3"]::after {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><circle cx="20" cy="20" r="8" fill="%234B0082"/><circle cx="40" cy="40" r="8" fill="%234B0082"/><circle cx="60" cy="60" r="8" fill="%234B0082"/></svg>');
+      }
+      .dice[data-value="4"]::after {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><circle cx="20" cy="20" r="8" fill="%234B0082"/><circle cx="60" cy="20" r="8" fill="%234B0082"/><circle cx="20" cy="60" r="8" fill="%234B0082"/><circle cx="60" cy="60" r="8" fill="%234B0082"/></svg>');
+      }
+      .dice[data-value="5"]::after {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><circle cx="20" cy="20" r="8" fill="%234B0082"/><circle cx="60" cy="20" r="8" fill="%234B0082"/><circle cx="40" cy="40" r="8" fill="%234B0082"/><circle cx="20" cy="60" r="8" fill="%234B0082"/><circle cx="60" cy="60" r="8" fill="%234B0082"/></svg>');
+      }
+      .dice[data-value="6"]::after {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><circle cx="20" cy="20" r="8" fill="%234B0082"/><circle cx="60" cy="20" r="8" fill="%234B0082"/><circle cx="20" cy="40" r="8" fill="%234B0082"/><circle cx="60" cy="40" r="8" fill="%234B0082"/><circle cx="20" cy="60" r="8" fill="%234B0082"/><circle cx="60" cy="60" r="8" fill="%234B0082"/></svg>');
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="dice-column" id="left-column">
+        <div class="total" id="left-total">Total: 1</div>
+        <div class="dice-wrapper">
+          <div class="dice" onclick="rollDice(this)" data-value="1">1</div>
+          <button class="remove-dice" onclick="removeDice(this)">×</button>
+        </div>
+        <button class="add-dice" onclick="addDice('left')">+</button>
+      </div>
+      <div class="dice-column" id="right-column">
+        <div class="total" id="right-total">Total: 1</div>
+        <div class="dice-wrapper">
+          <div class="dice" onclick="rollDice(this)" data-value="1">1</div>
+          <button class="remove-dice" onclick="removeDice(this)">×</button>
+        </div>
+        <button class="add-dice" onclick="addDice('right')">+</button>
+      </div>
+    </div>
+    <button class="roll-button" onclick="rollAllDice()">Roll All Dice</button>
+
+    <script>
+      function rollDiceValue() {
+        return Math.floor(Math.random() * 6) + 1;
+      }
+
+      function rollDice(diceElement) {
+        diceElement.style.animation = "roll 0.6s ease";
+
+        diceElement.addEventListener(
+          "animationend",
+          () => {
+            const roll = rollDiceValue();
+            diceElement.textContent = roll;
+            diceElement.dataset.value = roll;
+            updateTotal(diceElement.closest(".dice-column"));
+            diceElement.style.animation = "";
+          },
+          { once: true }
+        );
+      }
+
+      function rollAllDice() {
+        const allDice = document.querySelectorAll(".dice");
+        allDice.forEach(rollDice);
+      }
+
+      function addDice(side) {
+        const column = document.getElementById(`${side}-column`);
+        const newDiceWrapper = document.createElement("div");
+        newDiceWrapper.className = "dice-wrapper";
+
+        const newDice = document.createElement("div");
+        newDice.className = "dice";
+        newDice.textContent = "1";
+        newDice.dataset.value = "1";
+        newDice.onclick = function () {
+          rollDice(this);
+        };
+
+        const removeButton = document.createElement("button");
+        removeButton.className = "remove-dice";
+        removeButton.textContent = "×";
+        removeButton.onclick = function () {
+          removeDice(this);
+        };
+
+        newDiceWrapper.appendChild(newDice);
+        newDiceWrapper.appendChild(removeButton);
+
+        column.insertBefore(newDiceWrapper, column.lastElementChild);
+        updateTotal(column);
+      }
+
+      function removeDice(button) {
+        const wrapper = button.parentElement;
+        const column = wrapper.closest(".dice-column");
+        column.removeChild(wrapper);
+        updateTotal(column);
+      }
+
+      function updateTotal(column) {
+        const dice = column.querySelectorAll(".dice");
+        const total = Array.from(dice).reduce(
+          (sum, die) => sum + parseInt(die.textContent),
+          0
+        );
+        const totalElement = column.querySelector(".total");
+        totalElement.textContent = `Total: ${total}`;
+      }
+
+      window.onload = rollAllDice;
+    </script>
+  </body>
+</html>
