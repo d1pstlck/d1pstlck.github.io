@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dipstick's card</title>
+    <meta content="Dipsticks card!" property="og:title" />
+    <meta
+      content="My website for socials, info, and other things!"
+      property="og:description"
+    />
+    <meta content="" property="og:url" />
+    <meta content="https://d1pstlck.github.io/pfp1.jpg" property="og:image" />
+    <meta content="#363636" data-react-helmet="true" name="theme-color" />
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        font-family: "DM Sans", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: rgb(0, 0, 0);
+        background: url("backgif.gif") no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        overflow: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5)
+        );
+        z-index: 0;
+      }
+
+      .dm-sans-one {
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 100;
+        font-style: normal;
+      }
+
+      .card {
+        background: rgba(85, 66, 89, 0.44);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 66px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 60px;
+        width: 500px;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.5s ease;
+      }
+
+      .card:hover {
+        transform: rotateX(10deg) rotateY(10deg);
+      }
+
+      .card img.profile-pic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: -75px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 2px;
+      }
+
+      .card h2 {
+        margin: 40px 0 25px;
+        color: #e4e6eb;
+        font-size: 40px;
+      }
+
+      .card p {
+        margin: 10px 0 15px;
+        color: #919499;
+        font-size: 20px;
+      }
+
+      .about-me {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 3px;
+        margin-bottom: 12px;
+      }
+
+      .card img.pronouns {
+        width: 33px;
+        height: 33px;
+        vertical-align: middle;
+        margin-bottom: 17px;
+        transition: filter 0.3s ease;
+        text-decoration: none;
+      }
+      .card a {
+        text-decoration: none;
+      }
+      .card a:hover img.pronouns {
+        filter: brightness(0.6);
+        text-decoration: none;
+      }
+
+      .social-links {
+        margin-top: 5px;
+      }
+
+      .social-links a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: white;
+        font-size: 30px;
+        transition: color 0.3s ease;
+        display: inline-block;
+      }
+
+      .social-links a:hover {
+        color: #a09c9c;
+      }
+
+      .social-links img {
+        width: 33px;
+        height: 33px;
+        vertical-align: middle;
+        margin-bottom: 0px;
+        transition: filter 0.3s ease;
+      }
+
+      .social-links a:hover img {
+        filter: brightness(0.6);
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="card" id="card">
+      <img src="" alt="Profile Picture" class="profile-pic" />
+      <h2>Dipstick</h2>
+      <p>Terminally diagnosed as awesome</p>
+      <a href="/about">
+        <img src="abt.png" alt="Pronouns" class="pronouns" />
+      </a>
+      <div class="about-me">
+        <p>About me page</p>
+      </div>
+      <p>Socials and links!</p>
+      <p></p>
+      <div class="social-links">
+        <a href="https://www.roblox.com/users/2859917371" target="_blank">
+          <img src="rblx.png" alt="Roblox" />
+        </a>
+        <a href="https://last.fm/user/d1pstlck" target="_blank">
+          <i class="fab fa-lastfm"></i>
+        </a>
+
+        <a
+          href="https://open.spotify.com/user/954rlo1in85znffy981614owd"
+          target="_blank"
+        >
+          <i class="fab fa-spotify"></i>
+        </a>
+        <a href="https://steamcommunity.com/id/d1pstlck" target="_blank">
+          <i class="fab fa-steam"></i>
+        </a>
+        <a href="https://twitter.com/dipstlck" target="_blank">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://knflgw.csb.app/" target="_blank">
+          <i class="fas fa-link"></i>
+        </a>
+        <a href="https://discord.gg/siteroleplay" target="_blank">
+          <i class="fa-brands fa-discord"></i>
+        </a>
+      </div>
+    </div>
+  </body>
+  <script>
+    const card = document.getElementById("card");
+    const images = [
+      "pfp1.jpg",
+      "pfp2.jpg",
+      "pfp3.jpg",
+      "pfp4.jpg",
+      "pfp5.jpg",
+      "pfp6.jpg",
+    ];
+    const randomIndex = Math.floor(Math.random() * images.length);
+    const randomImage = images[randomIndex];
+    const profilePic = document.querySelector(".profile-pic");
+    profilePic.src = randomImage;
+
+    window.addEventListener("mousemove", (e) => {
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+  </script>
+</html>

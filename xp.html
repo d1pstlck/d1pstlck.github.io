@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XP Calculator</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <meta property="og:title" content="Dipsticks XP Calculator" />
+    <meta
+      property="og:description"
+      content="Calculates the time needed for desired XP"
+    />
+    <meta property="og:image" content="https://d1pstlck.github.io/pfp1.jpg" />
+    <meta property="og:url" content="Placeholder" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "DM Sans", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: rgb(0, 0, 0);
+        background: url("backgif.gif") no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        overflow: hidden;
+        color: white;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5)
+        );
+        z-index: 0;
+      }
+
+      .dm-sans-one {
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 100;
+        font-style: normal;
+      }
+
+      .card {
+        background: rgba(85, 66, 89, 0.44);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 50px;
+        width: 450px;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.5s ease;
+      }
+
+      .card h2 {
+        margin: 10px 0 15px;
+        color: #e4e6eb;
+        font-size: 40px;
+      }
+
+      .card p {
+        margin: 10px 0 5px;
+        color: #919499;
+        font-size: 20px;
+      }
+
+      .lists-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        gap: 66px;
+      }
+
+      .pronouns-list {
+        list-style-type: none;
+        padding: 20px;
+        flex-basis: 40%;
+      }
+
+      .pronouns-list li {
+        margin-bottom: 15px;
+        color: #e4e6eb;
+        font-size: 20px;
+      }
+
+      .pronouns-list li::before {
+        content: "•";
+        margin-right: 7px;
+      }
+
+      #time-box {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #e4e6eb;
+        border-radius: 5px;
+        padding: 10px 15px;
+        font-size: 20px;
+        margin-bottom: 10px;
+        width: fit-content;
+        display: inline-block;
+      }
+
+      .back-button {
+        background: rgba(85, 66, 89, 0.44);
+        filter: blur(0.75px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #e4e6eb;
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-2%, -5%);
+        transition: background-color 0.3s;
+      }
+
+      .back-button:hover {
+        filter: blur(0px);
+      }
+
+      .calculator-container {
+        margin-top: 50px;
+      }
+
+      .calculator {
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .calculator input {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #e4e6eb;
+        font-size: 20px;
+      }
+
+      .calculator input:focus {
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .calculator label {
+        color: #919499;
+      }
+      .side-panel {
+        background: rgba(85, 66, 89, 0.44);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 20px;
+        width: 300px;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.5s ease;
+        margin-left: 66px;
+      }
+      .side-panel h1,
+      .side-panel h3,
+      .side-panel p,
+      .side-panel label,
+      .side-panel select {
+        font-weight: normal;
+      }
+      select {
+        width: 30%;
+        background: rgba(85, 66, 89, 0.44);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #e4e6eb;
+        padding: 11px 17px;
+        text-decoration: none;
+        top: 0;
+        left: 0;
+        transition: background-color 0.3s;
+        margin-bottom: 5px;
+        font-size: 20px;
+        margin-top: 15px;
+        transition: background-color 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <a href="/scp" class="back-button">Back</a>
+      <div class="calculator-container">
+        <div class="calculator">
+          <h2>XP Calculator</h2>
+          <label for="current-xp">Current XP</label>
+          <input type="number" id="current-xp" name="current-xp" />
+          <label for="desired-xp">Desired XP</label>
+          <input type="number" id="desired-xp" name="desired-xp" />
+          <p id="resultOutput"></p>
+        </div>
+      </div>
+    </div>
+    <div class="side-panel" id="sidePanel">
+      <h1>Total XP list</h1>
+      <p></p>
+      <p></p>
+      <label for="teamXP">Select Team</label>
+      <select id="team" name="team">
+        <option value="0">CD</option>
+        <option value="1">O5</option>
+        <option value="2">SiD</option>
+        <option value="3">IA</option>
+        <option value="4">AR</option>
+        <option value="5">SO</option>
+        <option value="6">SG</option>
+        <option value="7">RA</option>
+        <option value="8">MED</option>
+        <option value="9">NLO</option>
+      </select>
+      <div id="sidePanelText"></div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        function calculateTimeLeft() {
+          const currentXP = parseFloat(
+            document.getElementById("current-xp").value
+          );
+          const desiredXP = parseFloat(
+            document.getElementById("desired-xp").value
+          );
+
+          if (isNaN(currentXP) || isNaN(desiredXP)) {
+            document.getElementById("resultOutput").textContent =
+              "Please insert values.";
+            return;
+          }
+
+          const timeLeft = (desiredXP - currentXP) / 15;
+          document.getElementById("resultOutput").textContent =
+            formatTime(timeLeft);
+        }
+
+        const inputs = document.querySelectorAll("input");
+        for (const input of inputs) {
+          input.addEventListener("input", calculateTimeLeft);
+        }
+
+        function formatTime(timeLeft) {
+          if (timeLeft < 60) {
+            return timeLeft.toFixed(2) + " minutes";
+          } else if (timeLeft < 3600) {
+            return (timeLeft / 60).toFixed(2) + " hours";
+          } else {
+            return (timeLeft / 3600).toFixed(2) + " days";
+          }
+        }
+
+        calculateTimeLeft();
+
+        function updateSidePanelText() {
+          const teamSelect = document.getElementById("team");
+          const selectedTeam = teamSelect.value;
+
+          let text = "";
+          switch (selectedTeam) {
+            case "0":
+              text =
+                "<h3>New Arrivant || 0<br>Disrespected || 100<br>Respected || 300<br>Dangerous || 700<br>Feared || 1500<br>Murderer || 3100<br>Hitman || 6300<br>Leader || 12700<br>Boss || 25500<br>Ringleader || 51100<br>Kingpin || 102300</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "1":
+              text =
+                "<h3>O5-3 || 0<br>O5-4 || 100<br>O5-5 || 300<br>O5-7 || 700<br>O5-10 || 1500<br>O5-11 || 3100<br>O5-12 || 6300<br>O5-1 || 12700<br>O5-13 || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "2":
+              text =
+                "<h3>Newly Appointed || 0<br>Inexperienced || 100<br>Semi Experienced || 300<br>Experienced || 700<br>Highly Experienced || 1500<br>Medium Authority || 3100<br>High Authority || 6300<br>Mastered Authority || 12700<br>Unrivaled Authority || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "3":
+              text =
+                "<h3>Recruit || 0<br>Agent || 100<br>Field Agent || 300<br>Senior Agent || 700<br>Special Agent || 1500<br>Supervisor || 3100<br>Deputy Director || 6300<br>Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "4":
+              text =
+                "<h3>Recruit || 0<br>Agent || 100<br>Senior Agent || 300<br>Unit-XO || 700<br>Unit-CO || 1500<br>Commander || 3100<br>Assistant Director || 6300<br>Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "5":
+              text =
+                "<h3>Recruit || 0<br>Operative || 100<br>Special Operative || 300<br>Senior Operative || 700<br>Unit Leader || 1500<br>Commander || 3100<br>Assistant Director || 6300<br>Director || 12700<br>Overseer|| 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "6":
+              text =
+                "<h3>Recruit || 0<br>Gaurd || 100<br>Senior Gaurd || 300<br>Sergeant || 700<br>Lieutenant || 1500<br>Commander || 3100<br>Deputy Director || 6300<br>Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "7":
+              text =
+                "<h3>Entrant || 0<br>Junior Researcher || 100<br>Researcher || 300<br>Specialist || 700<br>Senior Researcher || 1500<br>Head Researcher || 3100<br>Assistant Director || 6300<br>Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "8":
+              text =
+                "<h3>Intern || 0<br>Nurse || 100<br>Senior Nurse || 300<br>Doctor || 700<br>Physician || 1500<br>Attending Physician || 3100<br>Supervisor || 6300<br>Medical Director || 12700<br>Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            case "9":
+              text =
+                "<h3>Enlisted || 0<br>Junior Operative || 100<br>R Squadron || 300<br>A Squadron || 700<br>Operations Director || 1500<br>Insurgency Command || 3100<br>Global Council || 6300<br>The Head || 12700<br>The Overseer || 25500</h3><br><p>The XP system in SSRP resets your XP total when you level up. The XP calculator considers the overall XP you have earned and does not account for your levels. The XP list starts counting total XP from 0.</p>";
+              break;
+            default:
+              text = "";
+          }
+
+          const sidePanelText = document.getElementById("sidePanelText");
+          sidePanelText.innerHTML = text;
+        }
+
+        const teamSelect = document.getElementById("team");
+        teamSelect.addEventListener("change", updateSidePanelText);
+
+        updateSidePanelText();
+
+        const card = document.querySelector(".card");
+        window.addEventListener("mousemove", (e) => {
+          const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+          const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+          card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        const side = document.querySelector(".side-panel");
+        window.addEventListener("mousemove", (e) => {
+          const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+          const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+          side.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+      });
+    </script>
+  </body>
+</html>

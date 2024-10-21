@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random SCP</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <meta property="og:title" content="Dipsticks Random SCP picker" />
+    <meta
+      property="og:description"
+      content="Chooses a random SCP and takes you there."
+    />
+    <meta property="og:image" content="https://d1pstlck.github.io/pfp1.jpg" />
+    <meta property="og:url" content="Placeholder" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "DM Sans", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: rgb(0, 0, 0);
+        background: url("backgif.gif") no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        overflow: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5)
+        );
+        z-index: 0;
+      }
+
+      .dm-sans-one {
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 100;
+        font-style: normal;
+      }
+
+      .card {
+        background: rgba(85, 66, 89, 0.44);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 50px;
+        width: 400px;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.5s ease;
+      }
+
+      .card h2 {
+        margin: 10px 0 15px;
+        color: #e4e6eb;
+        font-size: 40px;
+      }
+
+      .card p {
+        margin: 10px 0 5px;
+        color: #919499;
+        font-size: 20px;
+      }
+
+      .scp-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .scp-link {
+        margin-top: 20px;
+        color: #e4e6eb;
+        font-size: 20px;
+      }
+
+      .LinkButton {
+        background-color: rgba(85, 66, 89, 0.44);
+        filter: blur(0.75px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #e4e6eb;
+        padding: 13px 25px;
+        cursor: pointer;
+        font-size: 23px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      .LinkButton:hover {
+        filter: blur(0px);
+      }
+      .back-button {
+        background: rgba(85, 66, 89, 0.44);
+        filter: blur(0.75px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #e4e6eb;
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-2%, -5%);
+        transition: background-color 0.3s;
+      }
+
+      .back-button:hover {
+        filter: blur(0px);
+      }
+    </style>
+    <script type="text/javascript">
+      var linkGenerated = false;
+
+      function getRandomLink() {
+        var button = document.querySelector(".LinkButton");
+
+        if (!linkGenerated) {
+          button.disabled = true;
+          var start = 1;
+          var end = 8000;
+          var interval = 100;
+          var animationDuration = 2500;
+          var startTime = Date.now();
+
+          var animation = setInterval(function () {
+            var currentTime = Date.now();
+            if (currentTime - startTime >= animationDuration) {
+              clearInterval(animation);
+              linkGenerated = true;
+              button.disabled = false;
+              button.innerHTML = "Visit Link";
+            } else {
+              var randomSCPNumber =
+                Math.floor(Math.random() * (end - start + 1)) + start;
+              var scpLink =
+                "https://scp-wiki.wikidot.com/scp-" + pad(randomSCPNumber, 3);
+              var scpLinkElement = document.querySelector(".scp-link");
+              scpLinkElement.innerHTML = "" + scpLink;
+            }
+          }, interval);
+        } else {
+          var scpLink = document.querySelector(".scp-link").textContent;
+          window.location.href = scpLink.replace("Generating SCP Link: ", "");
+        }
+      }
+
+      function pad(number, length) {
+        var str = "" + number;
+        while (str.length < length) {
+          if (str.length === 1) {
+            str = "00" + str;
+          } else if (str.length === 2) {
+            str = "0" + str;
+          }
+        }
+        return str;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="card">
+      <a href="/scp" class="back-button">Back</a>
+      <div class="scp-container">
+        <h2>Random SCP Picker</h2>
+        <a class="LinkButton" onclick="getRandomLink()">Get a link</a>
+        <p>SCP Link:</p>
+        <div class="scp-link"></div>
+      </div>
+    </div>
+
+    <script>
+      const card = document.querySelector(".card");
+      window.addEventListener("mousemove", (e) => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+      });
+    </script>
+  </body>
+</html>

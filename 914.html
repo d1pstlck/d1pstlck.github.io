@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>914 Recipe Generator</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <meta property="og:title" content="Dipsticks 914 Generator" />
+    <meta
+      property="og:description"
+      content="Automatically find recipes for items you want to make using an input and an output"
+    />
+    <meta property="og:image" content="https://d1pstlck.github.io/pfp1.jpg" />
+    <meta property="og:url" content="Placeholder" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "DM Sans", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #000;
+        background: url("backgif.gif") no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        overflow: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5)
+        );
+        z-index: 0;
+      }
+
+      .card {
+        background: rgba(85, 66, 89, 0.44);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 40px;
+        width: 700px;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .card h1 {
+        margin: 10px 0 15px;
+        color: #e4e6eb;
+        font-size: 36px;
+      }
+
+      .card p {
+        margin: 10px 0;
+        color: #919499;
+        font-size: 18px;
+      }
+
+      select {
+        width: 100%;
+        background: rgba(85, 66, 89, 0.44);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #e4e6eb;
+        padding: 12px 20px;
+        text-decoration: none;
+        top: 0;
+        left: 0;
+        transition: background-color 0.3s;
+        margin-bottom: 5px;
+        font-size: 18px;
+        margin-top: 15px;
+        transition: background-color 0.3s ease;
+        text-align: center;
+      }
+
+      button {
+        background: rgba(85, 66, 89, 0.44);
+        filter: blur(0.5px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #e4e6eb;
+        padding: 14px 30px;
+        text-decoration: none;
+        top: 0;
+        left: 0;
+        transition: background-color 0.3s;
+        margin-bottom: 7.5px;
+        font-size: 18px;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        filter: blur(0px);
+        cursor: pointer;
+      }
+
+      .raw {
+        background: rgba(85, 66, 89, 0.44);
+        filter: blur(0.5px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #e4e6eb;
+        padding: 14px 30px;
+        text-decoration: none;
+        top: 0;
+        left: 0;
+        transition: background-color 0.3s;
+        margin-bottom: 7.5px;
+        font-size: 18px;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+      }
+
+      .raw:hover {
+        filter: blur(0px);
+      }
+      #result {
+        background: rgba(85, 66, 89, 0.44);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px 20px;
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        z-index: 1;
+        color: #e4e6eb;
+        font-size: 18px;
+      }
+      .back-button {
+        background: rgba(85, 66, 89, 0.44);
+        filter: blur(0.75px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #e4e6eb;
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-2%, -5%);
+        transition: background-color 0.3s;
+      }
+
+      .back-button:hover {
+        filter: blur(0px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <a href="/scp" class="back-button">Back</a>
+      <h1>Item Recipe Path Generator</h1>
+      <p>Select the starting item and desired item:</p>
+      <select id="startItem">
+        <option value="">Select Starting Item</option>
+        <option value="AK74">AK74</option>
+        <option value="Bandages">Bandages</option>
+        <option value="Blowtorch">Blowtorch</option>
+        <option value="Cage">Cage</option>
+        <option value="Candy">Candy</option>
+        <option value="Cassette">Cassette</option>
+        <option value="Clipboard">Clipboard</option>
+        <option value="Coffee">Coffee</option>
+        <option value="Crowbar">Crowbar</option>
+        <option value="Cuffs">Cuffs</option>
+        <option value="Desert Eagle">Desert Eagle</option>
+        <option value="FAMAS">FAMAS</option>
+        <option value="First Aid Kit">First Aid Kit</option>
+        <option value="Flashlight">Flashlight</option>
+        <option value="Food Tray">Food Tray</option>
+        <option value="Glock-17">Glock-17</option>
+        <option value="G17">G17</option>
+        <option value="Green Food">Green Food</option>
+        <option value="Handcuffs">Handcuffs</option>
+        <option value="Hacking Tool">Hacking Tool</option>
+        <option value="HK416">HK416</option>
+        <option value="ID Card">ID Card</option>
+        <option value="Iron Bars">Iron Bars</option>
+        <option value="Lavender">Lavender</option>
+        <option value="Lost Vent Map">Lost Vent Map</option>
+        <option value="MasterCuffs">MasterCuffs</option>
+        <option value="Medbag">Medbag</option>
+        <option value="Medkit">Medkit</option>
+        <option value="Mop">Mop</option>
+        <option value="MP5SD">MP5SD</option>
+        <option value="M249">M249</option>
+        <option value="M4A1">M4A1</option>
+        <option value="Nuke Key">Nuke Key</option>
+        <option value="Orange Food">Orange Food</option>
+        <option value="Photo">Photo</option>
+        <option value="Pizza">Pizza</option>
+        <option value="P90">P90</option>
+        <option value="Red Food">Red Food</option>
+        <option value="Riot Shield">Riot Shield</option>
+        <option value="SCAR-H">SCAR-H</option>
+        <option value="SCP-198">SCP-198</option>
+        <option value="SCP-330">SCP-330</option>
+        <option value="SCP-701-1">SCP-701-1</option>
+        <option value="SCP-860">SCP-860</option>
+        <option value="SCP-1025">SCP-1025</option>
+        <option value="Stolen M4A1">Stolen M4A1</option>
+        <option value="Taser">Taser</option>
+        <option value="Teddy">Teddy</option>
+        <option value="UMP">UMP</option>
+        <option value="Vent Cover">Vent Cover</option>
+        <option value="Vent Map">Vent Map</option>
+        <option value="Wood Planks">Wood Planks</option>
+      </select>
+
+      <select id="desiredItem">
+        <option value="">Select Desired Item</option>
+        <option value="AK74">AK74</option>
+        <option value="Bandages">Bandages</option>
+        <option value="Blowtorch">Blowtorch</option>
+        <option value="Cage">Cage</option>
+        <option value="Candy">Candy</option>
+        <option value="Cassette">Cassette</option>
+        <option value="Clipboard">Clipboard</option>
+        <option value="Coffee">Coffee</option>
+        <option value="Crowbar">Crowbar</option>
+        <option value="Cuffs">Cuffs</option>
+        <option value="Desert Eagle">Desert Eagle</option>
+        <option value="FAMAS">FAMAS</option>
+        <option value="First Aid Kit">First Aid Kit</option>
+        <option value="Flashlight">Flashlight</option>
+        <option value="Food Tray">Food Tray</option>
+        <option value="Glock-17">Glock-17</option>
+        <option value="G17">G17</option>
+        <option value="Green Food">Green Food</option>
+        <option value="Handcuffs">Handcuffs</option>
+        <option value="Hacking Tool">Hacking Tool</option>
+        <option value="HK416">HK416</option>
+        <option value="ID Card">ID Card</option>
+        <option value="Iron Bars">Iron Bars</option>
+        <option value="Lavender">Lavender</option>
+        <option value="Lost Vent Map">Lost Vent Map</option>
+        <option value="MasterCuffs">MasterCuffs</option>
+        <option value="Medbag">Medbag</option>
+        <option value="Medkit">Medkit</option>
+        <option value="Mop">Mop</option>
+        <option value="MP5SD">MP5SD</option>
+        <option value="M249">M249</option>
+        <option value="M4A1">M4A1</option>
+        <option value="Nuke Key">Nuke Key</option>
+        <option value="Orange Food">Orange Food</option>
+        <option value="Photo">Photo</option>
+        <option value="Pizza">Pizza</option>
+        <option value="P90">P90</option>
+        <option value="Red Food">Red Food</option>
+        <option value="Riot Shield">Riot Shield</option>
+        <option value="SCAR-H">SCAR-H</option>
+        <option value="SCP-198">SCP-198</option>
+        <option value="SCP-330">SCP-330</option>
+        <option value="SCP-701-1">SCP-701-1</option>
+        <option value="SCP-860">SCP-860</option>
+        <option value="SCP-1025">SCP-1025</option>
+        <option value="Stolen M4A1">Stolen M4A1</option>
+        <option value="Taser">Taser</option>
+        <option value="Teddy">Teddy</option>
+        <option value="UMP">UMP</option>
+        <option value="Vent Cover">Vent Cover</option>
+        <option value="Vent Map">Vent Map</option>
+        <option value="Wood Planks">Wood Planks</option>
+      </select>
+
+      <button onclick="generateRecipe()">Generate Recipe</button>
+      <div id="result" class="list"></div>
+      <a href="/list" class="raw">Raw List of Outputs</a>
+    </div>
+    <script>
+      const itemRecipes = {
+        AK74: {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        Bandages: {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        Blowtorch: {
+          Coarse: "Nothing",
+          Rough: "Coffee",
+          "1:1": "Crowbar",
+          Fine: "Hacking Tool",
+          "Very Fine": "Vent Cover",
+        },
+        Cage: {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        Candy: {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        Cassette: {
+          Coarse: "Nothing",
+          Rough: "Photo",
+          "1:1": "Cassette",
+          Fine: "Cassette",
+          "Very Fine": "Cassette",
+        },
+        Clipboard: {
+          Coarse: "Nothing",
+          Rough: "Coffee",
+          "1:1": "Food Tray",
+          Fine: "Flashlight",
+          "Very Fine": "Glock-17",
+        },
+        Coffee: {
+          Coarse: "Nothing",
+          Rough: "Clipboard",
+          "1:1": "Clipboard",
+          Fine: "Orange Food",
+          "Very Fine": "Pizza",
+        },
+        Crowbar: {
+          Coarse: "Nothing",
+          Rough: "Vent Map",
+          "1:1": "Flashlight",
+          Fine: "Vent Cover",
+          "Very Fine": "Blowtorch",
+        },
+        "Desert Eagle": {
+          Coarse: "Nothing",
+          Rough: "Coffee",
+          "1:1": "G17",
+          Fine: "MP5SD",
+          "Very Fine": "Green Food",
+        },
+        FAMAS: {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        "First Aid Kit": {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        Flashlight: {
+          Coarse: "Nothing",
+          Rough: "Crowbar",
+          "1:1": "Vent Cover",
+          Fine: "Coffee",
+          "Very Fine": "Blowtorch",
+        },
+        "Food Tray": {
+          Coarse: "Nothing",
+          Rough: "Green Food",
+          "1:1": "Coffee",
+          Fine: "First Aid Kit",
+          "Very Fine": "Coffee",
+        },
+        "Hacking Tool": {
+          Coarse: "Nothing",
+          Rough: "Vent Map",
+          "1:1": "First Aid Kit",
+          Fine: "Flashlight",
+          "Very Fine": "Pizza",
+        },
+        "Glock-17": {
+          Coarse: "Nothing",
+          Rough: "Coffee",
+          "1:1": "UMP",
+          Fine: "Clipboard",
+          "Very Fine": "Flashlight",
+        },
+        G17: {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        "Green Food": {
+          Coarse: "Nothing",
+          Rough: "Food Tray",
+          "1:1": "Red Food",
+          Fine: "Coffee",
+          "Very Fine": "Crowbar",
+        },
+        Handcuffs: {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        HK416: {
+          Coarse: "Nothing",
+          Rough: "Iron Bars",
+          "1:1": "P90",
+          Fine: "Riot Shield",
+          "Very Fine": "Desert Eagle",
+        },
+        "ID Card": {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        "Iron Bars": {
+          Coarse: "Nothing",
+          Rough: "Crowbar",
+          "1:1": "Wood Planks",
+          Fine: "Blowtorch",
+          "Very Fine": "Vent Cover",
+        },
+        Lavender: {
+          Coarse: "Nothing",
+          Rough: "Pizza",
+          "1:1": "Pizza",
+          Fine: "Pizza",
+          "Very Fine": "FAMAS",
+        },
+        "Lost Vent Map": {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        MasterCuffs: {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        Medbag: {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        Medkit: {
+          Coarse: "Nothing",
+          Rough: "Orange Food",
+          "1:1": "Mop",
+          Fine: "Food Tray",
+          "Very Fine": "Pizza",
+        },
+        Mop: {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Red Food",
+          Fine: "Coffee",
+          "Very Fine": "Flashlight",
+        },
+        MP5SD: {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        M249: {
+          Coarse: "Nothing",
+          Rough: "Iron Bars",
+          "1:1": "HK416",
+          Fine: "MP5SD",
+          "Very Fine": "Desert Eagle",
+        },
+        M4A1: {
+          Coarse: "Nothing",
+          Rough: "Pizza",
+          "1:1": "Stolen M4A1",
+          Fine: "HK416",
+          "Very Fine": "Vent Cover",
+        },
+        "Orange Food": {
+          Coarse: "Nothing",
+          Rough: "Food Tray",
+          "1:1": "Red Food",
+          Fine: "Green Food",
+          "Very Fine": "Crowbar",
+        },
+        Photo: {
+          Coarse: "Nothing",
+          Rough: "Cassette",
+          "1:1": "Photo",
+          Fine: "Photo",
+          "Very Fine": "Photo",
+        },
+        Pizza: {
+          Coarse: "Nothing",
+          Rough: "Red Food",
+          "1:1": "Food Tray",
+          Fine: "First Aid Kit",
+          "Very Fine": "Random",
+        },
+        P90: {
+          Coarse: "Nothing",
+          Rough: "Pizza",
+          "1:1": "Vent Cover",
+          Fine: "UMP",
+          "Very Fine": "Mop",
+        },
+        "Red Food": {
+          Coarse: "Nothing",
+          Rough: "Food Tray",
+          "1:1": "Orange Food",
+          Fine: "Green Food",
+          "Very Fine": "Crowbar",
+        },
+        "Riot Shield": {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Mop",
+          Fine: "Random",
+          "Very Fine": "Flashlight",
+        },
+        "SCAR-H": {
+          Coarse: "Nothing",
+          Rough: "Pizza",
+          "1:1": "HK416",
+          Fine: "Blowtorch",
+          "Very Fine": "UMP",
+        },
+        "SCP-198": {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        "SCP-330": {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        "SCP-701-1": {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        "SCP-860": {
+          Coarse: "Nothing",
+          Rough: "Crowbar",
+          "1:1": "Vent Map",
+          Fine: "Iron Bars",
+          "Very Fine": "SCP-198",
+        },
+        "SCP-1025": {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        "Stolen M4A1": {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "HK416",
+          Fine: "AK74",
+          "Very Fine": "M249",
+        },
+        Taser: {
+          Coarse: "Nothing",
+          Rough: "Random",
+          "1:1": "Random",
+          Fine: "Random",
+          "Very Fine": "Random",
+        },
+        Teddy: {
+          Coarse: "Nothing",
+          Rough: "G17",
+          "1:1": "Vent map",
+          Fine: "Clipboard",
+          "Very Fine": "First Aid Kit",
+        },
+        UMP: {
+          Coarse: "Nothing",
+          Rough: "Red Food",
+          "1:1": "P90",
+          Fine: "Riot Shield",
+          "Very Fine": "Vent Map",
+        },
+        "Vent Cover": {
+          Coarse: "Nothing",
+          Rough: "Crowbar",
+          "1:1": "Iron Bars",
+          Fine: "Nothing",
+          "Very Fine": "Random",
+        },
+        "Vent Map": {
+          Coarse: "Nothing",
+          Rough: "Red Food",
+          "1:1": "Crowbar",
+          Fine: "Flashlight",
+          "Very Fine": "Blowtorch",
+        },
+        "Wood Planks": {
+          Coarse: "Nothing",
+          Rough: "Mop",
+          "1:1": "Iron Bars",
+          Fine: "Crowbar",
+          "Very Fine": "Vent Cover",
+        },
+      };
+
+      function generateRecipe() {
+        const startItem = document.getElementById("startItem").value;
+        const desiredItem = document.getElementById("desiredItem").value;
+        const pathAndSettings = findShortestRecipePath(startItem, desiredItem);
+        if (pathAndSettings.path.length > 0) {
+          document.getElementById("result").textContent =
+            "Recipe: " + pathAndSettings.path.join(" -> ");
+        } else {
+          document.getElementById("result").textContent = "No recipe found.";
+        }
+      }
+
+      function findShortestRecipePath(startItem, desiredItem) {
+        const queue = [{ item: startItem, path: [], settings: [] }];
+        const visitedItems = new Set();
+        let shortestPath = null;
+
+        while (queue.length > 0) {
+          const { item, path, settings } = queue.shift();
+
+          if (item === desiredItem) {
+            if (
+              !shortestPath ||
+              settings.length < shortestPath.settings.length
+            ) {
+              shortestPath = { path, settings };
+            }
+            continue;
+          }
+
+          if (visitedItems.has(item) || !itemRecipes[item]) {
+            continue;
+          }
+
+          visitedItems.add(item);
+
+          for (const setting in itemRecipes[item]) {
+            const newItem = itemRecipes[item][setting];
+            if (!visitedItems.has(newItem)) {
+              queue.push({
+                item: newItem,
+                path: [...path, item + " on " + setting],
+                settings: [...settings, newItem],
+              });
+            }
+          }
+        }
+
+        return shortestPath || { path: [], settings: [] };
+      }
+      const card = document.querySelector(".card");
+      window.addEventListener("mousemove", (e) => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+      });
+    </script>
+  </body>
+</html>

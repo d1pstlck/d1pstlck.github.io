@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>914 List</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "DM Sans", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: rgb(0, 0, 0);
+        background: url("backgif.gif") no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        overflow: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5)
+        );
+        z-index: 0;
+      }
+
+      .container {
+        background: rgba(85, 66, 89, 0.44);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 66px;
+        width: 90%;
+        max-width: 800px;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.5s ease;
+        margin-top: 50px;
+        overflow: hidden;
+      }
+
+      .scrollable-content {
+        max-height: 500px;
+        overflow-y: auto;
+      }
+
+      .fixed-header {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .container th,
+      .container td {
+        color: #e4e6eb;
+        padding: 10px;
+      }
+
+      .container th {
+        font-size: 20px;
+        font-weight: bold;
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .container td {
+        font-size: 18px;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .container table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .back-button {
+        background: rgba(85, 66, 89, 0.44);
+        filter: blur(0.75px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #e4e6eb;
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-2%, -5%);
+        transition: background-color 0.3s;
+      }
+
+      .back-button:hover {
+        filter: blur(0px);
+      }
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(227, 197, 233, 0.519);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffffffca;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+            <a href="/914" class="back-button">Back</a>
+      <div class="fixed-header">
+<img src="lazy.png" width=100% 
+height=100%></img>
+      </div>
+      <div class="scrollable-content">
+        <table><table>
+            <tr>
+                <td>AK74</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>Bandages</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>Blowtorch</td>
+                <td>Coffee</td>
+                <td>Crowbar</td>
+                <td>Hacking Tool</td>
+                <td>Vent Cover</td>
+            </tr>
+            <tr>
+                <td>Cage</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>Candy</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>Cassette</td>
+                <td>Photo</td>
+                <td>Cassette</td>
+                <td>Cassette</td>
+                <td>Cassette</td>
+            </tr>
+            <tr>
+                <td>Clipboard</td>
+                <td>Coffee</td>
+                <td>Food Tray</td>
+                <td>Flashlight</td>
+                <td>Glock-17</td>
+            </tr>
+            <tr>
+                <td>Coffee</td>
+                <td>Clipboard</td>
+                <td>Clipboard</td>
+                <td>Orange Food</td>
+                <td>Pizza</td>
+            </tr>
+            <tr>
+                <td>Crowbar</td>
+                <td>Vent Map</td>
+                <td>Flashlight</td>
+                <td>Vent Cover</td>
+                <td>Blowtorch</td>
+            </tr>
+            <tr>
+                <td>Desert Eagle</td>
+                <td>Coffee</td>
+                <td>G17</td>
+                <td>MP5SD</td>
+                <td>Green Food</td>
+            </tr>
+            <tr>
+                <td>FAMAS</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>First Aid Kit</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>Flashlight</td>
+                <td>Crowbar</td>
+                <td>Vent Cover</td>
+                <td>Coffee</td>
+                <td>Blowtorch</td>
+            </tr>
+            <tr>
+                <td>Food Tray</td>
+                <td>Green Food</td>
+                <td>Coffee</td>
+                <td>First Aid Kit</td>
+                <td>Coffee</td>
+            </tr>
+            <tr>
+                <td>Hacking Tool</td>
+                <td>Vent Map</td>
+                <td>First Aid Kit</td>
+                <td>Flashlight</td>
+                <td>Pizza</td>
+            </tr>
+            <tr>
+                <td>Glock-17</td>
+                <td>Coffee</td>
+                <td>UMP</td>
+                <td>Clipboard</td>
+                <td>Flashlight</td>
+            </tr>
+            <tr>
+                <td>G17</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>Green Food</td>
+                <td>Food Tray</td>
+                <td>Red Food</td>
+                <td>Coffee</td>
+                <td>Crowbar</td>
+            </tr>
+            <tr>
+                <td>Handcuffs</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>HK416</td>
+                <td>Iron Bars</td>
+                <td>P90</td>
+                <td>Riot Shield</td>
+                <td>Desert Eagle</td>
+            </tr>
+            <tr>
+                <td>ID Card</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>Iron Bars</td>
+                <td>Crowbar</td>
+                <td>Wood Planks</td>
+                <td>Blowtorch</td>
+                <td>Vent Cover</td>
+            </tr>
+            <tr>
+                <td>Lavender</td>
+                <td>Pizza</td>
+                <td>Pizza</td>
+                <td>Pizza</td>
+                <td>FAMAS</td>
+            </tr>
+            <tr>
+                <td>Lost Vent Map</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>MasterCuffs</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>Medbag</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>Medkit</td>
+                <td>Orange Food</td>
+                <td>Mop</td>
+                <td>Food Tray</td>
+                <td>Pizza</td>
+            </tr>
+            <tr>
+                <td>Mop</td>
+                <td>Random</td>
+                <td>Red Food</td>
+                <td>Coffee</td>
+                <td>Flashlight</td>
+            </tr>
+            <tr>
+                <td>MP5SD</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>M249</td>
+                <td>Iron Bars</td>
+                <td>HK416</td>
+                <td>MP5SD</td>
+                <td>Desert Eagle</td>
+            </tr>
+            <tr>
+                <td>M4A1</td>
+                <td>Pizza</td>
+                <td>Stolen M4A1</td>
+                <td>HK416</td>
+                <td>Vent Cover</td>
+            </tr>
+            <tr>
+                <td>Orange Food</td>
+                <td>Food Tray</td>
+                <td>Red Food</td>
+                <td>Green Food</td>
+                <td>Crowbar</td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td>Cassette</td>
+                <td>Photo</td>
+                <td>Photo</td>
+                <td>Photo</td>
+            </tr>
+            <tr>
+                <td>Pizza</td>
+                <td>Red Food</td>
+                <td>Food Tray</td>
+                <td>First Aid Kit</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>P90</td>
+                <td>Pizza</td>
+                <td>Vent Cover</td>
+                <td>UMP</td>
+                <td>Mop</td>
+            </tr>
+            <tr>
+                <td>Red Food</td>
+                <td>Food Tray</td>
+                <td>Orange Food</td>
+                <td>Green Food</td>
+                <td>Crowbar</td>
+            </tr>
+            <tr>
+                <td>Riot Shield</td>
+                <td>Random</td>
+                <td>Mop</td>
+                <td>Random</td>
+                <td>Flashlight</td>
+            </tr>
+            <tr>
+                <td>SCAR-H</td>
+                <td>Pizza</td>
+                <td>HK416</td>
+                <td>Blowtorch</td>
+                <td>UMP</td>
+            </tr>
+            <tr>
+                <td>SCP-198</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>SCP-330</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>SCP-701-1</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>SCP-860</td>
+                <td>Crowbar</td>
+                <td>Vent Map</td>
+                <td>Iron Bars</td>
+                <td>SCP-198</td>
+            </tr>
+            <tr>
+                <td>SCP-1025</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>Stolen M4A1</td>
+                <td>Random</td>
+                <td>HK416</td>
+                <td>AK74</td>
+                <td>M249</td>
+            </tr>
+            <tr>
+                <td>Taser</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>Teddy</td>
+                <td>G17</td>
+                <td>Vent map</td>
+                <td>Clipboard</td>
+                <td>First Aid Kit</td>
+            </tr>
+            <tr>
+                <td>UMP</td>
+                <td>Red Food</td>
+                <td>P90</td>
+                <td>Riot Shield</td>
+                <td>Vent Map</td>
+            </tr>
+            <tr>
+                <td>Vent Cover</td>
+                <td>Crowbar</td>
+                <td>Iron Bars</td>
+                <td>Nothing</td>
+                <td>Random</td>
+            </tr>
+            <tr>
+                <td>Vent Map</td>
+                <td>Red Food</td>
+                <td>Crowbar</td>
+                <td>Flashlight</td>
+                <td>Blowtorch</td>
+            </tr>
+            <tr>
+                <td>Wood Planks</td>
+                <td>Mop</td>
+                <td>Iron Bars</td>
+                <td>Crowbar</td>
+                <td>Vent Cover</td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
