@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AOC Scenario Generator</title>
+    <meta
+      content="Dipsticks Ages of Conflict Scenario Generator"
+      property="og:title"
+    />
+    <meta
+      content="Creates a scenario file from a terrain image and a political image!"
+      property="og:description"
+    />
+    <meta content="" property="og:url" />
+    <meta content="https://d1pstlck.github.io/pfp1.jpg" property="og:image" />
+    <meta content="#363636" data-react-helmet="true" name="theme-color" />
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap");
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f4e1d2;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-size: cover;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 2vw;
+        border-radius: 12px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        max-width: 35vw;
+        max-height: 45vw;
+        width: 100%;
+        border: 1px solid #e4bfa9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        text-align: center;
+      }
+
+      h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 2vw;
+        color: #543c3a;
+        margin-bottom: 0.5vw;
+        position: relative;
+      }
+
+      h1::after {
+        content: "";
+        display: block;
+        width: 1vw;
+        height: 3px;
+        background-color: #543c3a;
+        margin: 0.5vw auto 0;
+      }
+
+      .form-group {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.3vw;
+        font-size: 1vw;
+        font-weight: 500;
+        color: #444;
+      }
+
+      input[type="file"] {
+        display: none;
+      }
+
+      .custom-file-upload {
+        width: 66%;
+        padding: 0.4vw;
+        border-radius: 0.5vw;
+        border: 1px solid #d9a382;
+        font-size: 0.8vw;
+        background-color: #fdf3e3;
+        color: #543c3a;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .custom-file-upload:hover {
+        background-color: #f4e1d2;
+        border-color: #c5856b;
+      }
+
+      .filename {
+        margin-top: 0.5vw;
+        font-size: 0.8vw;
+        color: #543c3a;
+        text-align: center;
+        display: block;
+      }
+
+      input[type="number"] {
+        width: 40%;
+        padding: 0.6vw;
+        border-radius: 1vw;
+        border: 1px solid #d9a382;
+        font-size: 1vw;
+        background-color: #fdf3e3;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"]:hover {
+        border-color: #c5856b;
+      }
+
+      button {
+        background-color: #8c3b2d;
+        color: #fff;
+        border: none;
+        font-weight: 500;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        margin-top: 0.5vw;
+        margin-bottom: 0.1vw;
+        padding: 0.6vw;
+        border-radius: 0.5vw;
+        font-size: 1vw;
+      }
+
+      button:hover {
+        background-color: #73291f;
+        transform: translateY(-2px);
+      }
+
+      #downloadLink {
+        display: none;
+        text-align: center;
+        margin-top: 20px;
+        font-size: 1vw;
+        color: #6c93d1;
+        cursor: pointer;
+      }
+
+      #downloadLink:hover {
+        text-decoration: underline;
+      }
+
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border: 1px solid #e4bfa9;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+
+      .popup-header {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .popup-close {
+        background-color: #8c3b2d;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      .popup-close:hover {
+        background-color: #73291f;
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 20px;
+          max-width: 100%;
+        }
+
+        h1 {
+          font-size: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+      <div class="popup-header"><h1>Guide</h1></div>
+      <div>
+        <p><strong>How to:</strong></p>
+        <p>
+          Make images, a terrain image and a nations image (cities optional)
+        </p>
+        <p>Upload in the correct area and tweak the settings</p>
+        <p>
+          Once downloaded, insert into "Custom Scenarios" from a file browser
+        </p>
+        <p><strong>Colors:</strong></p>
+        <ul>
+          <li>Water: #ffffff (Or blank in political map)</li>
+          <li>Plains: #000000</li>
+          <li>Crossing: #cccccc</li>
+          <li>Desert/Tundra: #666666</li>
+          <li>Hills: #333333</li>
+          <li>Mountains: #999999</li>
+          <li>Forest: #1f1f1f</li>
+        </ul>
+        <p><strong>Image info:</strong></p>
+        <p>White = Blank on country and city map</p>
+        <p>
+          Color of cities on city map = rightful owner, position = actual owner
+        </p>
+      </div>
+      <button class="popup-close" id="closePopup">Close</button>
+    </div>
+
+    <div class="container">
+      <h1>AOC Scenario Generator</h1>
+
+      <div class="form-group">
+        <label for="terrainInput">Upload Terrain Image</label>
+        <label class="custom-file-upload">
+          <input type="file" id="terrainInput" accept="image/*" />
+          Choose File
+        </label>
+        <span class="filename" id="terrainFilename">No file selected</span>
+      </div>
+
+      <div class="form-group">
+        <label for="countriesInput">Upload Countries Image</label>
+        <label class="custom-file-upload">
+          <input type="file" id="countriesInput" accept="image/*" />
+          Choose File
+        </label>
+        <span class="filename" id="countriesFilename">No file selected</span>
+      </div>
+
+      <div class="form-group">
+        <label for="citiesInput">Upload Cities Image (Optional)</label>
+        <label class="custom-file-upload">
+          <input type="file" id="citiesInput" accept="image/*" />
+          Choose File
+        </label>
+        <span class="filename" id="citiesFilename">No file selected</span>
+      </div>
+
+      <div class="form-group">
+        <label for="citiesCount"># of Random Cities per Nation</label>
+        <input type="number" id="citiesCount" value="" min="0" />
+      </div>
+
+      <div class="form-group">
+        <label for="startingYear">Starting Year</label>
+        <input type="number" id="startingYear" value="0" />
+      </div>
+      <button id="generateBtn">Generate Scenario</button>
+      <button id="showGuideBtn">Guide</button>
+    </div>
+
+    <script>
+      document
+        .getElementById("showGuideBtn")
+        .addEventListener("click", function () {
+          document.getElementById("popup").style.display = "block";
+          document.getElementById("overlay").style.display = "block";
+        });
+
+      document
+        .getElementById("closePopup")
+        .addEventListener("click", function () {
+          document.getElementById("popup").style.display = "none";
+          document.getElementById("overlay").style.display = "none";
+        });
+      document
+        .getElementById("terrainInput")
+        .addEventListener("change", function () {
+          const fileName = this.files[0].name;
+          document.getElementById("terrainFilename").textContent = fileName;
+        });
+
+      document
+        .getElementById("countriesInput")
+        .addEventListener("change", function () {
+          const fileName = this.files[0].name;
+          document.getElementById("countriesFilename").textContent = fileName;
+        });
+
+      document
+        .getElementById("citiesInput")
+        .addEventListener("change", function () {
+          const fileName = this.files[0].name;
+          document.getElementById("citiesFilename").textContent = fileName;
+        });
+
+      document
+        .getElementById("generateBtn")
+        .addEventListener("click", async function () {
+          const terrainImage = document.getElementById("terrainInput").files[0];
+          const countriesImage =
+            document.getElementById("countriesInput").files[0];
+          const citiesImage = document.getElementById("citiesInput").files[0];
+
+          const startingYear = parseInt(
+            document.getElementById("startingYear").value
+          );
+          const citiesCount = parseInt(
+            document.getElementById("citiesCount").value
+          );
+
+          if (!terrainImage || !countriesImage || isNaN(startingYear)) {
+            alert("Upload both images and enter a valid starting year.");
+            return;
+          }
+
+          try {
+            const terrainData = await getImageData(terrainImage);
+            const countriesData = await getImageData(countriesImage);
+            const citiesData = citiesImage
+              ? await getImageData(citiesImage)
+              : null;
+
+            const scenario = generateScenario(
+              terrainData,
+              countriesData,
+              citiesData,
+              startingYear,
+              citiesCount
+            );
+            downloadScenario(scenario);
+          } catch (error) {
+            console.error("Error generating scenario:", error);
+          }
+        });
+
+      function getImageData(imageFile) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          const img = new Image();
+
+          reader.onload = function () {
+            img.src = reader.result;
+            img.onload = function () {
+              const canvas = document.createElement("canvas");
+              const ctx = canvas.getContext("2d");
+              canvas.width = img.width;
+              canvas.height = img.height;
+              ctx.drawImage(img, 0, 0);
+              let imageData = ctx.getImageData(0, 0, img.width, img.height);
+              resolve(imageData);
+            };
+          };
+          reader.readAsDataURL(imageFile);
+        });
+      }
+
+      function generateScenario(
+        terrainData,
+        countriesData,
+        citiesData,
+        startingYear,
+        citiesCount
+      ) {
+        const width = terrainData.width;
+        const height = terrainData.height;
+        const terrainMap = [];
+        const ownersMap = [];
+        const nations = [];
+        const cities = [];
+        const countryColors = {};
+        const nationPositions = {};
+
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            const flippedCoords = flipCoordinates(x, y, width, height);
+            const terrainIndex =
+              (flippedCoords.y * width + flippedCoords.x) * 4;
+            const r = terrainData.data[terrainIndex];
+            const g = terrainData.data[terrainIndex + 1];
+            const b = terrainData.data[terrainIndex + 2];
+            const terrainHexColor = rgbToHex(r, g, b);
+            terrainMap.push(getTerrainType(terrainHexColor));
+          }
+        }
+
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            const flippedCoords = flipCoordinates(x, y, width, height);
+            const countryIndex =
+              (flippedCoords.y * width + flippedCoords.x) * 4;
+            const cr = countriesData.data[countryIndex];
+            const cg = countriesData.data[countryIndex + 1];
+            const cb = countriesData.data[countryIndex + 2];
+            const countryHexColor = rgbToHex(cr, cg, cb);
+
+            if (
+              countryHexColor !== "#ffffff" &&
+              countryHexColor !== "#cccccc"
+            ) {
+              if (!countryColors[countryHexColor]) {
+                const nationId = nations.length + 1;
+                const flippedNationCoords = flipCoordinates(
+                  x,
+                  y,
+                  width,
+                  height
+                );
+
+                const nation = {
+                  id: nationId,
+                  name: null,
+                  destroyed: false,
+                  pos: { x: x, y: y },
+                  originalPos: { x: x, y: y },
+                  gold: 5000,
+                  color: { r: cr / 255, g: cg / 255, b: cb / 255, a: 1.0 },
+                  startYear: startingYear,
+                  endYear: 0.0,
+                  killerId: 0,
+                  originId: 0,
+                  revoltIds: [],
+                  killedIds: [],
+                  combatEfficiency: Math.floor(Math.random() * 10) + 1,
+                  landValue: Math.floor(Math.random() * 100),
+                  maxArea: Math.floor(Math.random() * 10) + 1,
+                  revoltPercent: 0.0,
+                  aiDisabled: false,
+                  stress: 0,
+                  totalWars: 0,
+                  lives: [],
+                  liegeId: 0,
+                  puppetIds: [],
+                  puppetIntegration: 0,
+                };
+
+                countryColors[countryHexColor] = nation;
+                nations.push(nation);
+                nationPositions[nationId] = [];
+              }
+              nationPositions[countryColors[countryHexColor].id].push(
+                flippedCoords
+              );
+              ownersMap.push(countryColors[countryHexColor].id);
+            } else {
+              ownersMap.push(0);
+            }
+          }
+        }
+
+        if (citiesData) {
+          for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+              const flippedCoords = flipCoordinates(x, y, width, height);
+              const cityIndex = (flippedCoords.y * width + flippedCoords.x) * 4;
+              const r = citiesData.data[cityIndex];
+              const g = citiesData.data[cityIndex + 1];
+              const b = citiesData.data[cityIndex + 2];
+              const cityHexColor = rgbToHex(r, g, b);
+
+              if (cityHexColor === "#ffffff") {
+                continue;
+              }
+
+              const matchingNation = nations.find(
+                (nation) =>
+                  rgbToHex(
+                    nation.color.r * 255,
+                    nation.color.g * 255,
+                    nation.color.b * 255
+                  ) === cityHexColor
+              );
+              if (matchingNation) {
+                cities.push({
+                  x: x,
+                  y: y,
+                  n: null,
+                  r: matchingNation.id,
+                });
+              }
+            }
+          }
+        } else {
+          nations.forEach((nation) => {
+            for (let j = 0; j < citiesCount; j++) {
+              const randomNationPosition =
+                nationPositions[nation.id][
+                  Math.floor(Math.random() * nationPositions[nation.id].length)
+                ];
+              cities.push({
+                x: randomNationPosition.x,
+                y: height - 1 - randomNationPosition.y,
+                n: null,
+                r: nation.id,
+              });
+            }
+          });
+        }
+        const scenario = {
+          version: "3.4.2",
+          width: width,
+          height: height,
+          startingYear: startingYear,
+          currentGameTime: 0.0,
+          nations: nations,
+          cities: cities,
+          alliances: [],
+          wars: [],
+          terrain: terrainMap,
+          owner: ownersMap,
+        };
+        return scenario;
+      }
+      function flipCoordinates(x, y, width, height) {
+        return {
+          x: x,
+          y: height - 1 - y,
+        };
+      }
+
+      function rgbToHex(r, g, b) {
+        const toHex = (c) => {
+          const hex = c.toString(16).padStart(2, "0");
+          return hex;
+        };
+        return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+      }
+
+      function getTerrainType(hexColor) {
+        if (hexColor === "#ffffff") return 0;
+        if (hexColor === "#000000") return 1;
+        if (hexColor === "#cccccc") return 2;
+        if (hexColor === "#666666") return 3;
+        if (hexColor === "#333333") return 4;
+        if (hexColor === "#999999") return 5;
+        if (hexColor === "#1f1f1f") return 6;
+      }
+
+      function downloadScenario(scenario) {
+        const jsonString = JSON.stringify(scenario, null, 2);
+        const blob = new Blob([jsonString], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+
+        const downloadLink = document.createElement("a");
+        downloadLink.href = url;
+        downloadLink.download = "scenario.aoc";
+        downloadLink.style.display = "none";
+
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      }
+    </script>
+  </body>
+</html>
