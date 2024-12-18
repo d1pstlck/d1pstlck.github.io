@@ -76,15 +76,14 @@
 
       .lists-container {
         display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-        gap: 66px;
+        flex-direction: column;
+        align-items: center;
+        gap: 0px;
       }
 
       .stuff-list {
         list-style-type: none;
-        padding: 20px;
-        flex-basis: 40%;
+        padding: 5px;
       }
 
       .stuff-list li {
@@ -135,6 +134,13 @@
     <div class="card">
       <a href="/card" class="back-button">Back</a>
       <div class="lists-container">
+        <div>
+          <h2>Pronouns</h2>
+          <ul class="stuff-list">
+            <li>She</li>
+            <li>They</li>
+          </ul>
+        </div>
         <div>
           <h2>Interests</h2>
           <ul class="stuff-list">
